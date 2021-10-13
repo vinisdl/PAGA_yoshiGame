@@ -66,6 +66,7 @@ void Object::update()
 
 void Object::draw()
 {
+	_onScreen = true;
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texID);
 
@@ -115,4 +116,16 @@ bool Object::Collision(Object object)
 		|| (position.y  <= object.position.y + object.scale.y
 			&& position.y + scale.y >= object.position.y + object.scale.y);	
 	return collisionX && collisionY;
+}
+
+
+bool Object::onScreen()
+{
+	return _onScreen;
+}
+
+
+void Object::removeScreen()
+{
+	_onScreen = false;
 }

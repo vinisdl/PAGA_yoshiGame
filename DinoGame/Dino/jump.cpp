@@ -2,13 +2,13 @@
 
 const int jumpVelocity = 10.0;
 
-Jump::Jump(Sprite* sprite, vector<Sprite>* parallax)
+Jump::Jump(Sprite* sprite, vector<Sprite>* connectedObjects)
 {
 	this->sprite = sprite;
 	jump = false;
 	up = false;
 	down = false;		
-	this->parallax = parallax;
+	this->connectedObjects = connectedObjects;
 }
 void Jump::StartJump()
 {
@@ -32,23 +32,24 @@ void Jump::Check()
 		this->sprite->IncrensePositionY(jumpVelocity * -1 / 2);
 
 	this->ResetJump();
-	this->checkParallax();
+	this->checkConnectedObjects();
 }
 
 
 
-void Jump::checkParallax() {
-	for (int i = 0; i < this->parallax->size() -1 ; i++)
-	{		
-		if ((this->parallax->at(i).getPositionY() - this->parallax->at(i).getInitalPositionY() <= 50.0) && (jump || down) &&!this->parallax->at(i).getActionActive()) {
-			this->parallax->at(i).IncrensePositionY(jumpVelocity / 2);
+void Jump::checkConnectedObjects() {
+	for (int i = 0; i < this->connectedObjects->size() -1 ; i++)
+	{
+		
+		if ((this->connectedObjects->at(i).getPositionY() - this->connectedObjects->at(i).getInitalPositionY() <= 50.0) && (jump || down) &&!this->connectedObjects->at(i).getActionActive()) {
+			this->connectedObjects->at(i).IncrensePositionY(jumpVelocity / 2);
 		}
-		else if (this->parallax->at(i).getPositionY() > this->parallax->at(i).getInitalPositionY()) {
-			this->parallax->at(i).setActionActive(true);
-			this->parallax->at(i).IncrensePositionY(jumpVelocity * -1 / 4);
+		else if (this->connectedObjects->at(i).getPositionY() > this->connectedObjects->at(i).getInitalPositionY()) {
+			this->connectedObjects->at(i).setActionActive(true);
+			this->connectedObjects->at(i).IncrensePositionY(jumpVelocity * -1 / 4);
 		}
 		else {
-			this->parallax->at(i).setActionActive(false);
+			this->connectedObjects->at(i).setActionActive(false);
 		}
 	}
 }

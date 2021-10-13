@@ -62,19 +62,3 @@ void Sprite::update()
 	glUniform2f(offsetLoc, iFrame * dx, iAnimation * dy);
 	iFrame = (iFrame + 1) % nFrames;
 }
-
-bool Sprite::onScreen()
-{		
-	return _onScreen;
-}
-
-void Sprite::Draw()
-{
-	Object::draw();
-	_onScreen = true;
-}
-
-void Sprite::removeScreen()
-{
-	_onScreen = false;
-}

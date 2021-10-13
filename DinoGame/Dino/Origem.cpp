@@ -108,20 +108,37 @@ int main()
 
 	//Texturas das camadas
 
-	vector<Sprite> clouds;
+	vector<Sprite> birds;
 
 	for (int i = 0; i < 3; i++)
 	{
-		GLuint cloudID = loadTexture("./textures/bird.png");
+		GLuint birdID = loadTexture("./textures/bird.png");
 		Shader* animatedShader = new Shader("./shaders/animatedsprites.vs", "./shaders/animatedsprites.fs");
 
-		Sprite cloud;
+		Sprite bird;
+		bird.initialize();
+		bird.setSpritesheet(birdID, 1, 2);
+		bird.setShader(animatedShader);
+		bird.setDimensions(glm::vec3(30.0 * 2, 39.0 * 2, 1.0));
+		bird.setPosition(glm::vec3(900, 500.0, 0.0));
+		birds.push_back(bird);
+	}
+
+
+	vector<Object> clouds;
+
+	for (int i = 0; i < 10; i++)
+	{
+		GLuint cloudID = loadTexture("./textures/cloud.png");
+		Shader* cloudShader = new Shader("./shaders/sprite.vs", "./shaders/sprite.fs");
+
+		Object cloud;
 		cloud.initialize();
-		cloud.setSpritesheet(cloudID, 1, 2);
-		cloud.setShader(animatedShader);
+		cloud.setTexture(cloudID);
+		cloud.setShader(cloudShader);
 		cloud.setDimensions(glm::vec3(30.0 * 2, 39.0 * 2, 1.0));
 		cloud.setPosition(glm::vec3(900, 500.0, 0.0));
-		clouds.push_back(cloud);		
+		clouds.push_back(cloud);
 	}
 
 
@@ -187,7 +204,7 @@ int main()
 
 	Timer timer;
 	yoshi.setAnimation(1);
-	Jump jump(&yoshi, &clouds);
+	Jump jump(&yoshi, &birds);
 	int draw = 2;
 	int cactusLevel = 1;
 
@@ -242,9 +259,6 @@ int main()
 		animShaderCactusSmall->Use();
 		animShaderCactusSmall->setMat4("projection", glm::value_ptr(ortho));
 
-
-
-
 		if (keys[GLFW_KEY_UP])
 		{
 			jump.StartJump();
@@ -276,19 +290,48 @@ int main()
 			else
 			{
 				clouds[i].setPositionX(900.0);
-				clouds[i].removeScreen();
 			}
-			int v1 = rand() % 200;
-
+			int v1 = rand() % 300;
+	
 			if (!clouds[i].onScreen() && v1 == 1) {
 				clouds[i].setPosition(glm::vec3(900, 500.0, 0.0));
 				clouds[i].update();
-				clouds[i].Draw();
+				clouds[i].draw();
 			}
 
 			if (clouds[i].onScreen()) {
 				clouds[i].update();
-				clouds[i].Draw();
+				clouds[i].draw();
+			}
+
+		}
+
+
+		for (int i = 0; i < birds.size() - 1; i++)
+		{
+			birds[i].getShader()->Use();
+			birds[i].getShader()->setMat4("projection", glm::value_ptr(ortho));
+
+			if (birds[i].getXPos() > -4)
+			{
+				birds[i].setPositionX(-3);
+			}
+			else
+			{
+				birds[i].setPositionX(900.0);
+				birds[i].removeScreen();
+			}
+			int v1 = rand() % 200;
+
+			if (!birds[i].onScreen() && v1 == 1) {
+				birds[i].setPosition(glm::vec3(900, 500.0, 0.0));
+				birds[i].update();
+				birds[i].draw();
+			}
+
+			if (birds[i].onScreen()) {
+				birds[i].update();
+				birds[i].draw();
 			}
 
 		}
@@ -304,10 +347,6 @@ int main()
 		{
 			cactus.setPositionX(900.0);
 		}
-
-		//if ((int)initlevel % 10 == 0) {
-		//	cactusLevel += 3;
-		//}
 
 
 		yoshi.update();

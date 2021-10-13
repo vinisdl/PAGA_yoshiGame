@@ -23,7 +23,7 @@ using namespace std;
 class Jump
 {
 public:
-	Jump(Sprite* sprite, vector<Sprite>* parallax);
+	Jump(Sprite* sprite, vector<Sprite>* connectedObjects);
 	~Jump() {};
 
 	void StartJump();
@@ -31,11 +31,11 @@ public:
 	void Down();
 	
 protected:
-	void checkParallax();
+	void checkConnectedObjects();
 	void ResetJump();
 
 	Sprite* sprite;
-	vector<Sprite> *parallax;
+	vector<Sprite> *connectedObjects;
 	bool jump;
 	bool up;
 	bool down;

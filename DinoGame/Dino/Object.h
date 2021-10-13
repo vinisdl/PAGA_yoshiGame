@@ -49,6 +49,11 @@ public:
 	inline void resetPositionY() { this->position.y = initalPositionY; }
 	inline void resetPositionX() { this->position.x = initalPositionX; }
 
+
+	bool onScreen();	
+
+	void removeScreen();
+
 	bool Collision(Object sprite);
 
 	float getXPos() { return position.x; }
@@ -68,5 +73,7 @@ protected:
 
 	float initalPositionY;
 	float initalPositionX;
+	bool _onScreen;
+
 };
 
