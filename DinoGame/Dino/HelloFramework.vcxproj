@@ -24,6 +24,7 @@
     <ProjectGuid>{afa1f4e3-20c0-449b-b6e6-d1ffadf3fd90}</ProjectGuid>
     <RootNamespace>HelloFramework</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Dino</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
