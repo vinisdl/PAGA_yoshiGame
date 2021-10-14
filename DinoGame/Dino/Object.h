@@ -41,10 +41,10 @@ public:
 	inline glm::vec3 getScale() { this->scale; }
 
 	inline int getPositionY() { return this->position.y; }
-	inline int getInitalPositionY() { return this->initalPositionY; }
-	inline int getInitalPositionX() { return this->initalPositionX; }
-	inline void setPositionX(float x) { this->position.x += x; }
-	inline void IncrensePositionY(float y) { this->position.y += y; }
+	inline int getInitialPositionY() { return this->initalPositionY; }
+	inline int getInitialPositionX() { return this->initalPositionX; }
+	inline void incrensePositionX(float x) { this->position.x += x; }
+	inline void incrensePositionY(float y) { this->position.y += y; }
 
 	inline void resetPositionY() { this->position.y = initalPositionY; }
 	inline void resetPositionX() { this->position.x = initalPositionX; }
@@ -54,7 +54,7 @@ public:
 
 	void removeScreen();
 
-	bool Collision(Object sprite);
+	bool collision(Object sprite);
 
 	float getXPos() { return position.x; }
 

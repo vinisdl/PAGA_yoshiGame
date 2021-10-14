@@ -103,7 +103,7 @@ void Object::setScale(glm::vec3 scaleFactors, bool reset)
 }
 
 
-bool Object::Collision(Object object)
+bool Object::collision(Object object)
 {
 	bool collisionX = (position.x + scale.x  >= object.position.x
 		&& position.x <= object.position.x)

@@ -20,16 +20,16 @@ void Jump::StartJump()
 void Jump::Check()
 {	
 	if (jump) {
-		if (this->sprite->getPositionY() - this->sprite->getInitalPositionY() < 130.0 && !down)
-			this->sprite->IncrensePositionY(jumpVelocity);
+		if (this->sprite->getPositionY() - this->sprite->getInitialPositionY() < 130.0 && !down)
+			this->sprite->incrensePositionY(jumpVelocity);
 		else
 		{
 			down = true;
 		}		
 	}	
 
-	if (down && this->sprite->getPositionY() > this->sprite->getInitalPositionY())
-		this->sprite->IncrensePositionY(jumpVelocity * -1 / 2);
+	if (down && this->sprite->getPositionY() > this->sprite->getInitialPositionY())
+		this->sprite->incrensePositionY(jumpVelocity * -1 / 2);
 
 	this->ResetJump();
 	this->checkConnectedObjects();
@@ -41,12 +41,12 @@ void Jump::checkConnectedObjects() {
 	for (int i = 0; i < this->connectedObjects->size() -1 ; i++)
 	{
 		
-		if ((this->connectedObjects->at(i).getPositionY() - this->connectedObjects->at(i).getInitalPositionY() <= 50.0) && (jump || down) &&!this->connectedObjects->at(i).getActionActive()) {
-			this->connectedObjects->at(i).IncrensePositionY(jumpVelocity / 2);
+		if ((this->connectedObjects->at(i).getPositionY() - this->connectedObjects->at(i).getInitialPositionY() <= 50.0) && (jump || down) &&!this->connectedObjects->at(i).getActionActive()) {
+			this->connectedObjects->at(i).incrensePositionY(jumpVelocity / 2);
 		}
-		else if (this->connectedObjects->at(i).getPositionY() > this->connectedObjects->at(i).getInitalPositionY()) {
+		else if (this->connectedObjects->at(i).getPositionY() > this->connectedObjects->at(i).getInitialPositionY()) {
 			this->connectedObjects->at(i).setActionActive(true);
-			this->connectedObjects->at(i).IncrensePositionY(jumpVelocity * -1 / 4);
+			this->connectedObjects->at(i).incrensePositionY(jumpVelocity * -1 / 4);
 		}
 		else {
 			this->connectedObjects->at(i).setActionActive(false);
@@ -57,10 +57,10 @@ void Jump::checkConnectedObjects() {
 
 void Jump::Down()
 {
-	if (this->sprite->getPositionY() > this->sprite->getInitalPositionY())
+	if (this->sprite->getPositionY() > this->sprite->getInitialPositionY())
 	{
 		down = true;
-		this->sprite->IncrensePositionY(jumpVelocity * -1 / 2);
+		this->sprite->incrensePositionY(jumpVelocity * -1 / 2);
 	}
 	
 }
@@ -68,7 +68,7 @@ void Jump::Down()
 
 
 void Jump::ResetJump() {
-	if (this->sprite->getPositionY() == this->sprite->getInitalPositionY())
+	if (this->sprite->getPositionY() == this->sprite->getInitialPositionY())
 	{		
 		jump = false;
 		down = false;

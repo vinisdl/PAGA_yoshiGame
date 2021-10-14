@@ -205,7 +205,6 @@ int main()
 	Timer timer;
 	yoshi.setAnimation(1);
 	Jump jump(&yoshi, &birds);
-	int draw = 2;
 	int cactusLevel = 1;
 
 	// Loop da aplicação - "game loop"
@@ -285,11 +284,11 @@ int main()
 
 			if (clouds[i].getXPos() > -2)
 			{
-				clouds[i].setPositionX(-1);
+				clouds[i].incrensePositionX(-1);
 			}
 			else
 			{
-				clouds[i].setPositionX(900.0);
+				clouds[i].incrensePositionX(900.0);
 			}
 			int v1 = rand() % 300;
 	
@@ -314,11 +313,11 @@ int main()
 
 			if (birds[i].getXPos() > -4)
 			{
-				birds[i].setPositionX(-3);
+				birds[i].incrensePositionX(-3);
 			}
 			else
 			{
-				birds[i].setPositionX(900.0);
+				birds[i].incrensePositionX(900.0);
 				birds[i].removeScreen();
 			}
 			int v1 = rand() % 200;
@@ -341,11 +340,11 @@ int main()
 
 		if (cactus.getXPos() > (6.0 + level.find(cactusLevel)->second) * -1)
 		{
-			cactus.setPositionX((8.0 + level.find(cactusLevel)->second) * -1);
+			cactus.incrensePositionX((8.0 + level.find(cactusLevel)->second) * -1);
 		}
 		else
 		{
-			cactus.setPositionX(900.0);
+			cactus.incrensePositionX(900.0);
 		}
 
 
@@ -355,8 +354,6 @@ int main()
 		cactus.update();
 		cactus.draw();
 
-		draw += 1;
-
 		timer.finish();
 		double waitingTime = timer.calcWaitingTime(30, timer.getElapsedTimeMs());
 		if (waitingTime)
@@ -364,7 +361,7 @@ int main()
 			std::this_thread::sleep_for(std::chrono::milliseconds((int)waitingTime));
 		}
 
-		if (yoshi.Collision(cactus)) {
+		if (yoshi.collision(cactus)) {
 			break;
 		}
 
